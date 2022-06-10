@@ -22,35 +22,35 @@ require 'database.php';
         background-color: #f00;
         font-weight:bold;"
     }
+
 </style>
 </head>
 <body>
     <main style="width: 900px; margin: 20px auto;">
     <div class="container">
         <table class="table my-2">
-            <h4 class="table my-4">Overzicht studenten die te laat waren</h4>
+            <h4 class="table my-3">Overzicht studenten die te laat waren</h4>
             <table class="table table-striped">
             <tr>
                 <th nowrap>Naam student</th>
                 <th>Klas</th>
                 <th nowrap>Minuten te laat</th>
                 <th>Reden te laat</th>
- 
+    	    </tr>
             <?php
-                $sql = "SELECT * FROM `crud_challenge`";
-                $studenten = getData($sql, 'fetchall');
+                $sql = "SELECT * FROM `te_laat_melder`";
+                $studenten = getData($sql, 'fetch');
                 foreach($studenten as $student){
                     echo "<tr>";
                     echo "<td>{$student['student_naam']}</td>";
                     echo "<td> {$student['klas']} </td>";
                     echo "<td> {$student['minuten_te_laat']}</td>";
-                    echo "<td> {$student['reden_te_laat']}</td>";
-                    echo "<td><a class='btn btn-success' href='update.php?id={$student['id']}'>update</a></td>";
+                    echo "<td> {$student['reden_te_laat']}</td>";    
+                    echo "<td><a class='btn btn-success' href='verwijder.php?id={$student['id']}'>Verwijder</a></td>";
+                    echo "<td><a class='btn btn-success' href='update.php?id={$student['id']}'>Update</a></td>";
                     echo "</tr>";
                 }
-            ?>
-                <th><a href="verwijder.php" class="btn btn-delete">Verwijder</a></th>
-            </tr>    
+            ?>  
         </table>
         <br>
         <a href="telaat.php" class="btn btn-success" id="Knop1">W&eacute;&eacute;r eentje te laat!</a> 
@@ -58,8 +58,7 @@ require 'database.php';
 
         <?php
         $sql = "SELECT MAX(minuten_te_laat) AS hoogst ,AVG(minuten_te_laat) AS gemiddeld ,SUM(minuten_te_laat) AS opsomming FROM `te_laat_melder`";
-        $minuten = getData($sql, 'fetchall');
-        var_dump($minuten);
+        $minuten = getData($sql, 'fetchall');   
         ?>
         <br><br><br>
 
@@ -67,7 +66,7 @@ require 'database.php';
 <table class="table table-striped">
     <thead>
         <tr>
-            <th rowspan="3">Statistieken</th>
+            <th rowspan="4">Statistieken</th>
         </tr>
     </thead>
     <tbody>

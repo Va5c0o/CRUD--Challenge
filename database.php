@@ -17,13 +17,12 @@ function getData($sql, $method){
     $statement = $conn->prepare($sql);
     $statement->execute();
 
-    if($method == 'fetch'){
-        $result = $statement->fetch(PDO::FETCH_LAZY);
+    if($method == 'fetchall'){
+        $result = $statement->fetch(PDO::FETCH_BOTH);
     }
     else {
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC); 
+        $result = $statement->fetchAll(PDO::FETCH_BOTH); 
     }
     return $result;
 }
-    
 ?>
